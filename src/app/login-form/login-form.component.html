@@ -1,0 +1,21 @@
+<h2>Log in.</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form)" *ngIf="!this.token" >
+  <div>
+    <label for="name">Type your name:</label>
+    <br>
+    <input type="text" id="name" placeholder="name..." formControlName="name" required>
+  </div>
+  <div>
+    <label for="pass">Type your password:</label>
+    <br>
+    <input type="password" id="pass" placeholder="pass..." formControlName="pass" required>
+  </div>
+  <button type="submit">Log In</button>
+</form>
+
+<button *ngIf="this.token" (click)="signOut()">Sign out</button>
+<p></p>
+<button *ngIf="this.token" (click)="getTeachers()">Get teachres</button>
+<br>
+<!-- <br>
+<button (click)="list()">Teachers List</button> -->
