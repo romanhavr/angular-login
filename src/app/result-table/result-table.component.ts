@@ -9,6 +9,7 @@ import { TestServiceService } from '../test-service.service';
 })
 export class ResultTableComponent implements OnInit {
   teachers = [];
+  students = [];
 
   constructor(private service: TestServiceService) {
   }
@@ -16,9 +17,12 @@ export class ResultTableComponent implements OnInit {
   ngOnInit() {
   }
 
-  show() {
+  showTeachers() {
     this.teachers = this.service.teachers;
-    console.log('erw');
+  }
+  showStudents() {
+    this.students = this.service.students;
+    // console.log('erw');
   }
 
 }

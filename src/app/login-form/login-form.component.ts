@@ -20,6 +20,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private service: TestServiceService) {}
 
   ngOnInit() {
+    this.token = localStorage.getItem('token') ? localStorage.getItem('token') : null;
   }
 
   onSubmit(form): void {
@@ -28,20 +29,25 @@ export class LoginFormComponent implements OnInit {
       password: form.controls.pass.value,
     };
     this.service.signIn(this.loginData).subscribe(
-      resp => this.token = resp.headers.get('Authorization')
+      resp => {
+        this.token = resp.headers.get('Authorization');
+        localStorage.setItem('token', this.token);
+      }
     );
 
     this.form.reset();
   }
 
   getTeachers() {
-    this.service.getTeachers(this.token).subscribe(
-      resp => console.log(resp)
-      // this.teachers = resp.data
-    );
+    this.service.getTeachers().subscribe();
+  }
+
+  getStudents() {
+    this.service.getStudents().subscribe();
   }
 
   signOut() {
     this.token = null;
+    localStorage.removeItem('token');
   }
 }

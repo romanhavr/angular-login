@@ -14,6 +14,7 @@ const httpOptions = {
 export class TestServiceService {
   private url = 'http://35.228.86.127:8080';
   teachers = [];
+  students = [];
 
   constructor(
     private http: HttpClient,
@@ -28,12 +29,19 @@ export class TestServiceService {
     );
   }
 
-  getTeachers(token): Observable<any[]> {
-    httpOptions.headers = httpOptions.headers.set('Authorization', token);
-    return this.http.get<any[]>(`${this.url}/teachers`, httpOptions)
+  getTeachers(): Observable<any[]> {
+    return this.http.get<any>(`${this.url}/teachers`, httpOptions)
     .pipe(
       tap(resp => this.teachers = resp.data),
       catchError(this.handleError<any[]>('getTeachers', []))
+    );
+  }
+
+  getStudents(): Observable<any[]> {
+    return this.http.get<any>(`${this.url}/students/classes/15`, httpOptions)
+    .pipe(
+      tap(resp => this.students = resp.data),
+      catchError(this.handleError<any[]>('getStudents', []))
     );
   }
 

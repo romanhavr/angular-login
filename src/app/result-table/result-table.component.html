@@ -1,4 +1,4 @@
-<button *ngIf="service.teachers.length" (click)="show()">Show teachers</button>
+<button *ngIf="service.teachers.length" (click)="showTeachers()">Show teachers</button>
 <!-- <p *ngIf="service.teachers.length">{{teachers[0].avatar}}</p> -->
 <div *ngFor="let teacher of teachers">
     <img [src]="teacher.avatar" alt="avatar" width="50">
@@ -10,5 +10,20 @@
     <span>email: <i>{{teacher.email}} </i></span>
     <span>phone: <u>{{teacher.phone}} </u></span>
     <span>id: <b>{{teacher.id}}</b></span>
+    <a href="/"> OTHER INFO</a>
+</div>
+
+<button *ngIf="service.students.length" (click)="showStudents()">Show students</button>
+<!-- <p *ngIf="service.teachers.length">{{teachers[0].avatar}}</p> -->
+<div *ngFor="let student of students">
+    <img [src]="student.avatar" alt="avatar" width="50">
+    <span>{{student.firstname}} </span>
+    <span>{{student.lastname}} </span>
+    <span>{{student.patronymic}} </span>
+    <span>{{student.dateOfBirth}} </span>
+    <span>login: <b>{{student.login}} </b></span>
+    <span>email: <i>{{student.email}} </i></span>
+    <span>phone: <u>{{student.phone}} </u></span>
+    <span>id: <b>{{student.id}}</b></span>
     <a href="/"> OTHER INFO</a>
 </div>

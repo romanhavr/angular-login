@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ResultTableComponent } from './result-table/result-table.component';
+import { httpInterceptorProviders } from './interceprots';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { ResultTableComponent } from './result-table/result-table.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
