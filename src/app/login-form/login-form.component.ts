@@ -46,6 +46,10 @@ export class LoginFormComponent implements OnInit {
     this.service.getStudents().subscribe();
   }
 
+  getClasses() {
+    this.service.getClasses().subscribe();
+  }
+
   signOut() {
     this.token = null;
     localStorage.removeItem('token');

@@ -15,6 +15,7 @@ export class TestServiceService {
   private url = 'http://35.228.86.127:8080';
   teachers = [];
   students = [];
+  classes = [];
 
   constructor(
     private http: HttpClient,
@@ -23,26 +24,34 @@ export class TestServiceService {
 
   signIn(userData): Observable<any> {
     return this.http.post<any>(`${this.url}/signin`, userData, { observe: 'response' })
-    .pipe(
-      // tap(resp => console.log('signing in...', resp.headers.get('Authorization'))),
-      catchError(this.handleError<any[]>('signed in', []))
-    );
+      .pipe(
+        // tap(resp => console.log('signing in...', resp.headers.get('Authorization'))),
+        catchError(this.handleError<any[]>('signed in', []))
+      );
   }
 
   getTeachers(): Observable<any[]> {
     return this.http.get<any>(`${this.url}/teachers`, httpOptions)
-    .pipe(
-      tap(resp => this.teachers = resp.data),
-      catchError(this.handleError<any[]>('getTeachers', []))
-    );
+      .pipe(
+        tap(resp => this.teachers = resp.data),
+        catchError(this.handleError<any[]>('getTeachers', []))
+      );
   }
 
   getStudents(): Observable<any[]> {
     return this.http.get<any>(`${this.url}/students/classes/15`, httpOptions)
-    .pipe(
-      tap(resp => this.students = resp.data),
-      catchError(this.handleError<any[]>('getStudents', []))
-    );
+      .pipe(
+        tap(resp => this.students = resp.data),
+        catchError(this.handleError<any[]>('getStudents', []))
+      );
+  }
+
+  getClasses(): Observable<any[]> {
+    return this.http.get<any>(`${this.url}/classes`, httpOptions)
+      .pipe(
+        tap(resp => this.classes = resp.data),
+        catchError(this.handleError<any[]>('getClasses', []))
+      );
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

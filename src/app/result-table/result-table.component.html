@@ -1,29 +1,92 @@
-<button *ngIf="service.teachers.length" (click)="showTeachers()">Show teachers</button>
-<!-- <p *ngIf="service.teachers.length">{{teachers[0].avatar}}</p> -->
-<div *ngFor="let teacher of teachers">
-    <img [src]="teacher.avatar" alt="avatar" width="50">
-    <span>{{teacher.firstname}} </span>
-    <span>{{teacher.lastname}} </span>
-    <span>{{teacher.patronymic}} </span>
-    <span>{{teacher.dateOfBirth}} </span>
-    <span>login: <b>{{teacher.login}} </b></span>
-    <span>email: <i>{{teacher.email}} </i></span>
-    <span>phone: <u>{{teacher.phone}} </u></span>
-    <span>id: <b>{{teacher.id}}</b></span>
-    <a href="/"> OTHER INFO</a>
-</div>
+<!-- <button *ngIf="service.teachers.length" (click)="showTeachers()">Show teachers</button>
+<p></p>
+<button *ngIf="service.students.length" (click)="showStudents()">Show students</button> -->
+<p></p>
+<button *ngIf="service.classes.length" (click)="showClasses()">Show classes</button>
 
-<button *ngIf="service.students.length" (click)="showStudents()">Show students</button>
-<!-- <p *ngIf="service.teachers.length">{{teachers[0].avatar}}</p> -->
-<div *ngFor="let student of students">
-    <img [src]="student.avatar" alt="avatar" width="50">
-    <span>{{student.firstname}} </span>
-    <span>{{student.lastname}} </span>
-    <span>{{student.patronymic}} </span>
-    <span>{{student.dateOfBirth}} </span>
-    <span>login: <b>{{student.login}} </b></span>
-    <span>email: <i>{{student.email}} </i></span>
-    <span>phone: <u>{{student.phone}} </u></span>
-    <span>id: <b>{{student.id}}</b></span>
-    <a href="/"> OTHER INFO</a>
-</div>
+<mat-accordion>
+  <mat-expansion-panel *ngIf="service.teachers.length">
+    <mat-expansion-panel-header>
+      Вчителі
+    </mat-expansion-panel-header>
+    <div *ngFor="let teacher of service.teachers">
+      <img [src]="teacher.avatar" alt="avatar" width="50">
+      <span>{{teacher.firstname}} </span>
+      <span>{{teacher.lastname}} </span>
+      <span>{{teacher.patronymic}} </span>
+      <span>{{teacher.dateOfBirth}} </span>
+      <span>login: <b>{{teacher.login}} </b></span>
+      <span>email: <i>{{teacher.email}} </i></span>
+      <span>phone: <u>{{teacher.phone}} </u></span>
+      <span>id: <b>{{teacher.id}}</b></span>
+      <a href="/"> OTHER INFO</a>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="service.students.length">
+    <mat-expansion-panel-header>
+      Учні
+    </mat-expansion-panel-header>
+    <div *ngFor="let student of service.students">
+      <img [src]="student.avatar" alt="avatar" width="50">
+      <span>{{student.firstname}} </span>
+      <span>{{student.lastname}} </span>
+      <span>{{student.patronymic}} </span>
+      <span>{{student.dateOfBirth}} </span>
+      <span>login: <b>{{student.login}} </b></span>
+      <span>email: <i>{{student.email}} </i></span>
+      <span>phone: <u>{{student.phone}} </u></span>
+      <span>id: <b>{{student.id}}</b></span>
+      <a href="/"> OTHER INFO</a>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="service.classes.length">
+    <mat-expansion-panel-header>
+      Активні класи
+    </mat-expansion-panel-header>
+    <mat-table [dataSource]="activeClassesData">
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i = index"> {{i+1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="className">
+        <th mat-header-cell *matHeaderCellDef> className </th>
+        <td mat-cell *matCellDef="let element"> {{element.className}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="classYear">
+        <th mat-header-cell *matHeaderCellDef> classYear </th>
+        <td mat-cell *matCellDef="let element"> {{element.classYear}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="numOfStudents">
+        <th mat-header-cell *matHeaderCellDef> numOfStudents </th>
+        <td mat-cell *matCellDef="let element"> {{element.numOfStudents}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5,10]">
+    </mat-paginator>
+<!-- [length]="activeClasses.length" [pageSize]="10" (page)="pageEvent = $event" -->
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngIf="service.classes.length">
+    <mat-expansion-panel-header>
+      Неактивні класи
+    </mat-expansion-panel-header>
+    <div *ngFor="let classItem of service.classes">
+      <div *ngIf="!classItem.isActive">
+        <span>{{classItem.className}} </span>
+        <span><b>{{classItem.classYear}} </b></span>
+        <span><u>{{classItem.numOfStudents}}</u></span>
+        <span> {{classItem.classDescription}} </span>
+        <span><i>{{classItem.isActive}} </i></span>
+        <span>id: <b>{{classItem.id}}</b></span>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
